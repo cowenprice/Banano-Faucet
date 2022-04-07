@@ -3,7 +3,7 @@ You will need to sign up for these:
 MongoDB - www.mongodb.com  
 hCaptcha - www.hcaptcha.com
 
-
+And set these by your way of choosing (in your host's environment options, or creating an .env file, though you'd need to configure that yourself)
 | Environment Variable      | Description |
 | ----------- | ----------- |
 | seed | Banano Wallet Seed |
