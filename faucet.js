@@ -2,7 +2,7 @@ const QRCode = require('qrcode');
 const bananojs = require('bananojs');
 const banano = require('./banano.js');
 
-const hcaptcha_site_key = '056694d8-fecc-4cdc-8ca6-41e543e22f70';
+const hcaptcha_site_key = process.env.hcaptchaSiteKey;
 const bonus_min_amount = 101;
 const qr_code_opts = {
     errorCorrectionLevel: 'H',
