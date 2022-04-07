@@ -2,20 +2,44 @@
   <head>
     <!-- Ape Lincoln for President -->
     <meta charset="utf-8">
-    <meta property="og:title" content="Prussia Banano Faucet">
-    <meta property="og:description" content="Earn Free Banano, and Never Let Your Memes be Dreams!">
+    <meta property="og:title" content="CSquared's Banano Dispensary | Banano Faucet">
+    <meta property="og:description" content="Freshest Ban on the Block | Forked from Prussia's Faucet :: Earn Free Banano, and Never Let Your Memes be Dreams!">
     <meta property="og:image" content="(banano image here)">
     <meta name="viewport" content="width=device-width">
-    <title>Prussia Banano Faucet</title>
+    <title>CSquared's Banano Dispensary | Banano Faucet</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cantarell:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <link href="/style.css" rel="stylesheet" type="text/css" />
     <script src="https://hcaptcha.com/1/api.js" async defer></script>
+    <script type="text/javascript">
+      function onload(){
+        var element = document.getElementById('hcaptchaButton');
+        element.onclick = validate;
+      }
+      function validate(event){
+        setWaiting();
+        event.preventDefault();
+        hcaptcha.execute();
+      }
+      function onSubmit(token) {
+        invisible_hcaptcha_token = token;
+        document.getElementById('mainForm').submit();
+      }
+      function setWaiting(){
+        document.getElementById('formHCaptchaButtonImg').classList.add('u--flip-bounce-fast')
+      }
+    </script>
+
   </head>
   <body>
     <header>
-      <img src="/LOGO.png" alt="">
+      <div class="container">
+      <h5>CSquared's</h5>
+      <img class="u--flip-bounce" src="/banano_vibrant_alpha.png" alt="">
+      <h4>Banano Dispensary</h4>
+      </div>
     </header>
       <main id=#main>
       <br>
@@ -26,41 +50,67 @@
           <p>Come back in 24 hours to claim Banano again!</p>
           <p>{{ amount }} Banano has been sent to address {{ address }}</p>
           <p>Donations to {{ faucet_addr }} keep the faucet running! Please donate. If the faucet has more than 100 bananos, payouts will increase.</p>
-          <p>Please check out GoBanMe, a <a href="https://chrome.google.com/webstore/detail/gobanme/chcpbckfgpcogpgceecknjgcaicdonje">chrome</a> and <a href="https://addons.mozilla.org/en-US/firefox/addon/gobanme/">firefox</a> extension I made to help support your favorite banano sites!</p>
+          <p>Please check out GoBanMe, a <a href="https://chrome.google.com/webstore/detail/gobanme/chcpbckfgpcogpgceecknjgcaicdonje">chrome</a> and <a href="https://addons.mozilla.org/en-US/firefox/addon/gobanme/">firefox</a> 
+            extension made by <a href="https://faucet.prussia.dev/">Prussia</a> to help support your favorite banano sites!</p>
         {% endif %}
         <b>Current Faucet Balance: {{ current_bal }}</b>
-        <p>Also, a big thank you to our sponsor:</p>
-        <center>
-          <a href="https://theconquestofbliss.com"><img src="/sponsor/1.png" width="110px" height="110px"></img></a>
-          <br>
-          <a href="https://theconquestofbliss.com">Visit it here</a> 
-        </center>
       {% else %}
         {% if errors %}
           {{ errors }}
         {% endif %}
-        <form method="POST" action="/">
-          <p>Hi! Please donate to the faucet: {{ faucet_addr }}.</p>
+        <form method="POST" action="/" style="text-align: center;" id="mainForm">
+
           <div class="address-input">
             <label for="address" class="form-label">Banano Address:</label>
             <input id="address" class="form-control" type="text" name="addr">
           </div>
-          <div class="h-captcha" data-sitekey="9e25731c-b4b7-4ccf-a454-72f303c04a9f"></div>
+          {% if bonus_mode %}
+          <small class="bonus-text">BONUS ACTIVE</small>            
+          {% endif %}
+          {% if jackpotMultiplier > 1 %}
+          <div><small>Chance of <small class="bonus-text">{{jackpotMultiplier}}x</small> BAN</small></div>
+          {% endif %}
+          {% if not invisible_hcaptcha %}
           <div class="btn-container">
-            <button type="submit">Get Free Banano</button>
+            <div class="h-captcha" data-sitekey="{{hcaptcha_site_key}}" data-theme="dark"></div>
+          </div>
+          <div class="btn-container">
+            <button type="submit" wi><img src="/banana.png"></button>
+          </div>
+          {% endif %}
+          {% if invisible_hcaptcha %}
+          <div class="btn-container">
+            <button type="submit" id="hcaptchaButton" wi class="h-captcha" data-sitekey="{{hcaptcha_site_key}}" data-callback="onSubmit" data-open-callback="setWaiting"><img src="/banana.png"  id="formHCaptchaButtonImg">
+          </button>
+          </div>
+          {% endif %}
+          <small>Please consider donating to the dispensary supply:</small>
+          <small>{{ faucet_addr }}</small>
+          <div class="btn-container">
+            <!-- <img style="width: 50%; max-width:150px; max-height: 150px;" src="/faucet_qrcode_coloured.png"> -->
+            <img src="{{faucet_qr}}" style="width: 50%; max-width:150px; max-height: 150px;">
           </div>
         </form>
-        <b><a href="https://banano.cc/">What is Banano and how do I get a Banano Address?</a></b>
+        <b><a href="https://banano.cc/">Get started with Banano</a></b>
+        <br>
       {% endif %}
     </main>
     <footer>
-      <p>
-        <a href="https://ibb.co/0XxGNqt" target="_blank">
-          Frontend courtesy of: Ape Lincoln for President of the Banunion
-        </a>
-      </p>
-      {% if given %}
-        <p>Hey you! Yeah you! Wanna have some <a href="/nano">free nano</a> too?</p>
+<br>
+      <small>
+	This was forked from the faucet by Prussia, which you can check out <a href="https://faucet.prussia.dev/" target="_blank">here</a>.
+      </small>
+	<br>
+      <small>/u/csquarednz</small>
+      <small>If you want to support the hosting of this faucet with fiat:</small>
+      <small><a href="https://www.buymeacoffee.com/csquaredbanano">Buy me a coffee ☕</a></small>
+      {% if invisible_hcaptcha %}
+      <br>
+      <small>
+        This site is protected by hCaptcha and its
+<a href="https://hcaptcha.com/privacy">Privacy Policy</a> and
+<a href="https://hcaptcha.com/terms">Terms of Service</a> apply.
+      </small>
       {% endif %}
     </footer>
   </body>

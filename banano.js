@@ -21,7 +21,7 @@ async function check_bal(addr) {
 }
 
 async function faucet_dry() {
-  let bal = await check_bal("ban_3346kkobb11qqpo17imgiybmwrgibr7yi34mwn5j6uywyke8f7fnfp94uyps");
+  let bal = await check_bal("ban_3jyqzypmcn94dmyp7eb3k85sug1568xwehzx738o5jniaxaf1jpxdakjz96r");
   if (Number(bal) < 1) {
     return true;
   }
