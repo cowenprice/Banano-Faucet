@@ -1,4 +1,4 @@
-<Forked from Prussia's Faucet https://github.com/jetstream0/Banano-Faucet, see his first>
+<Forked from Prussia's Faucet https://github.com/jetstream0/Banano-Faucet, see his first>  
 You will need to sign up for these:  
 MongoDB - www.mongodb.com  
 hCaptcha - www.hcaptcha.com
