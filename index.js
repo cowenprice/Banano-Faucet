@@ -146,16 +146,16 @@ app.post('/', async function (req, res) {
     return res.send(nunjucks.render("index.html", { errors: errors, address: address, given: given, amount: amount, current_bal: String(current_bal), on_break: faucet.on_break, faucet_addr: faucet_addr, invisible_hcaptcha: invisible_hcaptcha }));
   }
   
-  let ip = req.header('x-forwarded-for').slice(0,14);
-  if (ip_cache[ip]) {
-    ip_cache[ip] = ip_cache[ip]+1
-    if (ip_cache[ip] > 3) {
-      errors = "Too many claims from this IP"
-      return res.send(nunjucks.render("index.html", {errors: errors, address: address, given: given, amount: amount, current_bal:String(current_bal), on_break: faucet.on_break, faucet_addr: faucet_addr, invisible_hcaptcha: invisible_hcaptcha }));
-    }
-  } else {
-    ip_cache[ip] = 1
-  }
+  // let ip = req.header('x-forwarded-for').slice(0,14);
+  // if (ip_cache[ip]) {
+  //   ip_cache[ip] = ip_cache[ip]+1
+  //   if (ip_cache[ip] > 3) {
+  //     errors = "Too many claims from this IP"
+  //     return res.send(nunjucks.render("index.html", {errors: errors, address: address, given: given, amount: amount, current_bal:String(current_bal), on_break: faucet.on_break, faucet_addr: faucet_addr, invisible_hcaptcha: invisible_hcaptcha }));
+  //   }
+  // } else {
+  //   ip_cache[ip] = 1
+  // }
 
   if (req.cookies['last_claim']) {
     if (Number(req.cookies['last_claim']) + claim_freq > Date.now()) {
